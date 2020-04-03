@@ -21,7 +21,6 @@ RUN pip install -U pip && \
     git clone https://github.com/MagicStack/uvloop && \
     cd uvloop && \
     git submodule update --init --recursive && \
-    git pull origin pull/327/merge --no-edit && \
     pip wheel . && \
     pip install *.whl && \
     cd .. && \
