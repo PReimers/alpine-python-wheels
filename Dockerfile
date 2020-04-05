@@ -70,7 +70,7 @@ RUN pip install -U pip && \
     pip wheel . --no-deps && \
     pip install --no-deps *.whl && \
     cd .. && \
-    git clone https://github.com/Diniboy1123/raven-aiohttp && \
+    git clone https://github.com/Gelbpunkt/raven-aiohttp && \
     cd raven-aiohttp && \
     pip wheel . --no-deps && \
     pip install --no-deps *.whl && \
