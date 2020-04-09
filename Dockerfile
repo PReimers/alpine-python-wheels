@@ -3,9 +3,20 @@ FROM gelbpunkt/python:latest
 WORKDIR /build
 
 RUN pip install -U pip && \
-    apk add --no-cache --virtual .build-deps git gcc g++ musl-dev linux-headers make automake libtool m4 autoconf jq curl libffi-dev && \
+    apk add --no-cache --virtual .build-deps git gcc g++ musl-dev linux-headers make automake libtool m4 autoconf jq curl zlib-dev jpeg-dev && \
+    apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.11/main libffi-dev && \
     git config --global user.name "Jens Reidel" && \
     git config --global user.email "jens@troet.org" && \
+    git clone https://github.com/Kozea/CairoSVG && \
+    cd CairoSVG && \
+    pip wheel . && \
+    pip install *.whl && \
+    cd .. && \
+    git clone https://github.com/niklasf/python-chess && \
+    cd python-chess && \
+    pip wheel . && \
+    pip install *.whl && \
+    cd .. && \
     git clone https://github.com/cython/cython && \
     cd cython && \
     pip wheel . && \
