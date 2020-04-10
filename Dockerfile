@@ -3,15 +3,10 @@ FROM gelbpunkt/python:latest
 WORKDIR /build
 
 RUN pip install -U pip && \
-    apk add --no-cache --virtual .build-deps git gcc g++ musl-dev linux-headers make automake libtool m4 autoconf jq curl zlib-dev jpeg-dev && \
+    apk add --no-cache --virtual .build-deps git gcc g++ musl-dev linux-headers make automake libtool m4 autoconf jq curl && \
     apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.11/main libffi-dev && \
     git config --global user.name "Jens Reidel" && \
     git config --global user.email "jens@troet.org" && \
-    git clone https://github.com/Kozea/CairoSVG && \
-    cd CairoSVG && \
-    pip wheel . && \
-    pip install *.whl && \
-    cd .. && \
     git clone https://github.com/niklasf/python-chess && \
     cd python-chess && \
     pip wheel . && \
@@ -25,7 +20,7 @@ RUN pip install -U pip && \
     git clone https://github.com/MagicStack/asyncpg && \
     cd asyncpg && \
     git submodule update --init --recursive && \
-    sed -i "s:0.29.14:3.0a0:g" setup.py && \
+    sed -i "s:0.29.14:3.0a1:g" setup.py && \
     pip wheel . && \
     pip install *.whl && \
     cd .. && \
@@ -48,7 +43,7 @@ RUN pip install -U pip && \
     git clone https://github.com/aio-libs/aiohttp && \
     cd aiohttp && \
     git submodule update --init --recursive && \
-    echo "cython==3.0a0" > requirements/cython.txt && \
+    echo "cython==3.0a1" > requirements/cython.txt && \
     make cythonize && \
     pip wheel .[speedups] && \
     pip install *.whl && \
