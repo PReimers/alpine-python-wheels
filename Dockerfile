@@ -3,13 +3,18 @@ FROM gelbpunkt/python:latest
 WORKDIR /build
 
 RUN pip install -U pip && \
-    apk add --no-cache --virtual .build-deps git gcc g++ musl-dev linux-headers make automake libtool m4 autoconf jq curl && \
+    apk add --no-cache --virtual .build-deps git gcc g++ musl-dev linux-headers make automake libtool m4 autoconf curl && \
     apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.11/main libffi-dev && \
     git config --global user.name "Jens Reidel" && \
     git config --global user.email "jens@troet.org" && \
     git clone https://github.com/niklasf/python-chess && \
     cd python-chess && \
     pip wheel . && \
+    pip install *.whl && \
+    cd .. && \
+    git clone https://github.com/aaugustin/websockets && \
+    cd websockets && \
+    pip wheel ".[websockets.speedups]" && \
     pip install *.whl && \
     cd .. && \
     git clone https://github.com/cython/cython && \
@@ -28,11 +33,6 @@ RUN pip install -U pip && \
     cd uvloop && \
     git submodule update --init --recursive && \
     pip wheel . && \
-    pip install *.whl && \
-    cd .. && \
-    git clone https://github.com/aaugustin/websockets && \
-    cd websockets && \
-    pip wheel ".[websockets.speedups]" && \
     pip install *.whl && \
     cd .. && \
     git clone https://github.com/aio-libs/aioredis && \
@@ -60,6 +60,7 @@ RUN pip install -U pip && \
     cd .. && \
     git clone https://github.com/Rapptz/discord.py && \
     cd discord.py && \
+    git checkout sharding-rework && \
     git pull origin pull/1849/merge --no-edit && \
     git pull origin pull/1497/merge --no-edit && \
     pip wheel . --no-deps && \
