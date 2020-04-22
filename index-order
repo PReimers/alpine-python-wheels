@@ -15,7 +15,7 @@ distro-1.5.0-py2.py3-none-any.whl
 tabulate-0.8.8-py3-none-any.whl
 yarl-1.4.2-cp39-cp39-linux_aarch64.whl
 typing_extensions-3.7.4.2-py3-none-any.whl
-python_chess-0.30.1-py3-none-any.whl
+python_chess-0.31.0-py3-none-any.whl
 hiredis-1.0.1-cp39-cp39-linux_aarch64.whl
 astunparse-1.6.3-py2.py3-none-any.whl
 pytz-2019.3-py2.py3-none-any.whl
@@ -36,7 +36,7 @@ dateparser-0.7.4-py2.py3-none-any.whl
 aiohttp-4.0.0a1-cp39-cp39-linux_aarch64.whl
 raven-6.10.0-py2.py3-none-any.whl
 duckpy-2.1.1-py3-none-any.whl
-discord.py-1.4.0a2489+gd6e3e09-py3-none-any.whl
+discord.py-1.4.0a2496+gdf71e37-py3-none-any.whl
 wavelink-0.6.0-py3-none-any.whl
 raven_aiohttp-0.7.0-py2.py3-none-any.whl
 aiowiki-1.0.0-py3-none-any.whl

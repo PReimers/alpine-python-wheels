@@ -33,7 +33,7 @@ RUN pip install -U pip && \
     git clone https://github.com/MagicStack/asyncpg && \
     cd asyncpg && \
     git submodule update --init --recursive && \
-    sed -i "s:0.29.14:3.0a1:g" setup.py && \
+    sed -i "s:0.29.14:3.0a2:g" setup.py && \
     pip wheel . && \
     pip install *.whl && \
     cd .. && \
@@ -51,7 +51,7 @@ RUN pip install -U pip && \
     git clone https://github.com/aio-libs/aiohttp && \
     cd aiohttp && \
     git submodule update --init --recursive && \
-    echo "cython==3.0a1" > requirements/cython.txt && \
+    echo "cython==3.0a2" > requirements/cython.txt && \
     make cythonize && \
     pip wheel .[speedups] && \
     pip install *.whl && \
