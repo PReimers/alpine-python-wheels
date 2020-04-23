@@ -1,8 +1,8 @@
-FROM gelbpunkt/python:latest
+FROM gelbpunkt/python:gcc10
 
 WORKDIR /build
 
-RUN pip install -U pip && \
+RUN apk upgrade --no-cache && \
     apk add --no-cache --virtual .build-deps git gcc g++ musl-dev linux-headers make automake libtool m4 autoconf curl && \
     apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.11/main libffi-dev && \
     git config --global user.name "Jens Reidel" && \
@@ -22,18 +22,19 @@ RUN pip install -U pip && \
     cd .. && \
     git clone https://github.com/aaugustin/websockets && \
     cd websockets && \
-    pip wheel ".[websockets.speedups]" && \
+    pip wheel . && \
     pip install *.whl && \
     cd .. && \
     git clone https://github.com/cython/cython && \
     cd cython && \
+    git checkout release && \
     pip wheel . && \
     pip install *.whl && \
     cd .. && \
     git clone https://github.com/MagicStack/asyncpg && \
     cd asyncpg && \
     git submodule update --init --recursive && \
-    sed -i "s:0.29.14:3.0a2:g" setup.py && \
+    sed -i "s:0.29.14:0.29.16:g" setup.py && \
     pip wheel . && \
     pip install *.whl && \
     cd .. && \
@@ -43,19 +44,18 @@ RUN pip install -U pip && \
     pip wheel . && \
     pip install *.whl && \
     cd .. && \
-    git clone https://github.com/aio-libs/aioredis && \
-    cd aioredis && \
-    pip wheel . && \
-    pip install *.whl && \
-    cd .. && \
     git clone https://github.com/aio-libs/aiohttp && \
     cd aiohttp && \
     git submodule update --init --recursive && \
-    echo "cython==3.0a2" > requirements/cython.txt && \
+    echo "cython==0.29.16" > requirements/cython.txt && \
     make cythonize && \
     pip wheel .[speedups] && \
     pip install *.whl && \
     cd .. && \
+    git clone https://github.com/aio-libs/aioredis && \
+    cd aioredis && \
+    pip wheel . && \
+    pip install *.whl && \
     git clone https://github.com/giampaolo/psutil && \
     cd psutil && \
     pip wheel . && \
@@ -85,6 +85,11 @@ RUN pip install -U pip && \
     cd aiowiki && \
     pip wheel . --no-deps && \
     pip install --no-deps *.whl && \
+    cd .. && \
+    git clone https://github.com/getsentry/raven-python && \
+    cd raven-python && \
+    pip wheel . && \
+    pip install *.whl && \
     cd .. && \
     git clone https://github.com/Diniboy1123/raven-aiohttp && \
     cd raven-aiohttp && \
@@ -121,8 +126,8 @@ RUN pip install -U pip && \
     cd .. && \
     git clone https://github.com/Gelbpunkt/duckpy && \
     cd duckpy && \
-    pip wheel . && \
-    pip install *.whl && \
+    pip wheel . --no-deps && \
+    pip install *.whl --no-deps && \
     cd .. && \
     apk del .build-deps
 
